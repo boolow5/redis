@@ -320,7 +320,17 @@ func (r *RedisDB) SRem(ctx context.Context, key string, member interface{}) erro
 	return r.client.SRem(ctx, addPrefix(key), member).Err()
 }
 
-// SIsMember checks if a member is in a set
-func (r *RedisDB) SIsMember(ctx context.Context, key string, member interface{}) (bool, error) {
-	return r.client.SIsMember(ctx, addPrefix(key), member).Result()
+// SetMembers returns all members in the set stored at key
+func (r *RedisDB) SetMembers(ctx context.Context, key string) ([]string, error) {
+	return r.client.SMembers(ctx, key).Result()
+}
+
+// SetRemove removes member from the set stored at key
+func (r *RedisDB) SetRemove(ctx context.Context, key string, member interface{}) error {
+	return r.client.SRem(ctx, key, member).Err()
+}
+
+// IsMemberOfSet checks if member is a member of the set stored at key
+func (r *RedisDB) IsMemberOfSet(ctx context.Context, key string, member interface{}) (bool, error) {
+	return r.client.SIsMember(ctx, key, member).Result()
 }

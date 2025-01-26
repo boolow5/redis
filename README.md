@@ -57,7 +57,7 @@ func main() {
     redisDb.RPop(ctx, "foo")  // removes an item from the tail of a list
     redisDb.SAdd(ctx, "foo", "bar")  // adds an item to a set
     redisDb.SRem(ctx, "foo", "bar")  // removes an item from a set
-    redisDb.SIsMember(ctx, "foo", "bar")  // checks if an item is in a set
+    redisDb.IsMemberOfSet(ctx, "foo", "bar")  // checks if an item is in a set
 
     redisDb.GetKeys("*") // gets all keys
 }
