@@ -104,6 +104,9 @@ type IRedisDB interface {
 
 	// SIsMember checks if a member is in a set.
 	SIsMember(key string, member interface{}) (bool, error)
+
+	// SMembers returns all members in a set.
+	SMembers(key string) ([]string, error)
 }
 
 type RedisDB struct {
@@ -333,4 +336,9 @@ func (r *RedisDB) SetRemove(ctx context.Context, key string, member interface{})
 // IsMemberOfSet checks if member is a member of the set stored at key
 func (r *RedisDB) IsMemberOfSet(ctx context.Context, key string, member interface{}) (bool, error) {
 	return r.client.SIsMember(ctx, key, member).Result()
+}
+
+// SMembers returns all members in a set
+func (r *RedisDB) SMembers(ctx context.Context, key string) ([]string, error) {
+	return r.client.SMembers(ctx, key).Result()
 }
