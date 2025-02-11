@@ -3,7 +3,6 @@ package redis
 import (
 	"context"
 	"errors"
-	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -190,7 +189,6 @@ func (r *RedisDB) GetKeyExpiry(ctx context.Context, pattern string) (time.Durati
 }
 
 func (r *RedisDB) Get(ctx context.Context, key string) (string, error) {
-	fmt.Printf("[RedisDB.Get] key: %s\n", key)
 	if r.client == nil {
 		return "", errors.New("redis client is nil")
 	}
